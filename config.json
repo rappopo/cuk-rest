@@ -1,0 +1,8 @@
+{
+  "common": {
+    "mountResource": "/api",
+    "crud": {
+      "limit": 25
+    }
+  }
+}
