@@ -21,9 +21,10 @@ module.exports = function(cuk){
       pkgId: pkgId,
       name: '',
       rootAction: opts => {
-        let prefix = opts.pkg.cfg.common.mount === '/' ? '' : opts.pkg.cfg.common.mount
-        let router = new Router({ prefix: pkg.cfg.common.mountResource + prefix })
-        app.use(helper('http:composeMiddleware')(_.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`))
+        let router = new Router({ prefix: pkg.cfg.common.mountResource })
+        app.use(helper('http:composeMiddleware')(
+          _.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`)
+        )
 
         router.param('ext', (ext, ctx, next) => {
           let accepts = ['json']

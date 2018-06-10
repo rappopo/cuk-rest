@@ -2,6 +2,7 @@
   "common": {
     "mountResource": "/api",
     "hideError": true,
+    "versioning": "v%s",
     "crud": {
       "limit": 25
     }
