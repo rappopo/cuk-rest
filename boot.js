@@ -42,5 +42,6 @@ module.exports = function(cuk){
           .use(router.allowedMethods())
       }
     })
+    resolve(true)
   })
 }
