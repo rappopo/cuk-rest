@@ -10,7 +10,6 @@ module.exports = function(cuk){
   const makeRoute = require('./lib/make_route')(cuk)
   const makeDefHandler = require('./lib/make_def_handler')(cuk)
 
-  pkg.trace('Initializing...')
   pkg.lib.Router = Router
 
   return new Promise((resolve, reject) => {
@@ -20,7 +19,7 @@ module.exports = function(cuk){
     helper('core:bootDeep')({
       pkgId: pkgId,
       name: '',
-      rootAction: opts => {
+      parentAction: opts => {
         let router = new Router({ prefix: pkg.cfg.common.mountResource })
         app.use(helper('http:composeMiddleware')(
           _.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`)
@@ -33,6 +32,8 @@ module.exports = function(cuk){
           }
           return next()
         })
+
+        helper('core:bootTrace')('%A Loading routes...', null)
 
         _.each(opts.files, f => {
           makeRoute(f, opts.pkg, pkg, router, opts.dir)

@@ -7,7 +7,7 @@ module.exports = function(cuk) {
   ...
   return {
     column: ['col1', 'col2'],                      // optional, global columns
-    middleware: 'root:globalMiddleware',           // optional, global middleware
+    middleware: 'app:globalMiddleware',           // optional, global middleware
     param: {                                       // optional, global parameter handler
       globalParam: (globalParam, ctx, next) => {
         ...
@@ -18,7 +18,7 @@ module.exports = function(cuk) {
     method: {
       find: {
         column: ['col1', 'col2'],                  // optional, overwrite global columns here
-        middleware: 'root:routeMiddleware',        // optional, additional middleware
+        middleware: 'app:routeMiddleware',        // optional, additional middleware
         path: '/my/custom/route/path.:ext',        // optional, custom route path
         param: {                                   // optional, parameter handler local to this method
           routeParam: (routeParam, ctx, next) => {
