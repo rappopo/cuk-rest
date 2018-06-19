@@ -4,7 +4,18 @@
     "hideError": true,
     "versioning": "v%s",
     "crud": {
-      "limit": 25
+      "limit": 25,
+      "plainResult": false
+    },
+    "key": {
+      "success": "success",
+      "data": "data",
+      "total": "total",
+      "page": false,
+      "skip": false,
+      "msg": "msg",
+      "statusCode": "statusCode",
+      "details": "details"
     }
   }
 }
