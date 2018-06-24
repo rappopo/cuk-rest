@@ -3,10 +3,11 @@
     "mountResource": "/api",
     "hideError": true,
     "versioning": "v%s",
+    "supportedFormats": ["json"],
     "crud": {
-      "limit": 25,
-      "plainResult": false
+      "limit": 25
     },
+    "plainResult": false,
     "key": {
       "success": "success",
       "data": "data",

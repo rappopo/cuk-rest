@@ -26,8 +26,9 @@ module.exports = function(cuk){
         )
 
         router.param('ext', (ext, ctx, next) => {
-          let accepts = ['json']
+          let accepts = pkg.cfg.common.supportedFormats
           if (accepts.indexOf(ext) === -1) {
+            ctx.params.ext = 'json'
             return ctx.status = 404
           }
           return next()
