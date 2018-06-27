@@ -1,6 +1,6 @@
 {
   "common": {
-    "mountResource": "/api",
+    "mount": "/api",
     "hideError": true,
     "versioning": "v%s",
     "supportedFormats": ["json"],

@@ -20,7 +20,7 @@ module.exports = function(cuk){
       pkgId: pkgId,
       name: '',
       parentAction: opts => {
-        let router = new Router({ prefix: pkg.cfg.common.mountResource })
+        let router = new Router({ prefix: pkg.cfg.common.mount })
         app.use(helper('http:composeMiddleware')(
           _.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`)
         )
