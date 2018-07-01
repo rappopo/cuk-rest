@@ -13,7 +13,7 @@ module.exports = function(cuk){
   pkg.lib.Router = Router
 
   return new Promise((resolve, reject) => {
-    app.use(makeDefHandler())
+//    app.use(makeDefHandler())
     app.use(helper('http:composeMiddleware')('http:responseTime', `${pkgId}:*`))
 
     helper('core:bootDeep')({
