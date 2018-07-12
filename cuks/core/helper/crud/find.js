@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function(cuk) {
-  const { _, helper, moment } = cuk.lib
+  const { _, helper, moment } = cuk.pkg.core.lib
   const pkg = cuk.pkg.rest
 
   return (model, options = {}) => {
