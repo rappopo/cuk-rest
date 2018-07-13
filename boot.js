@@ -34,7 +34,7 @@ module.exports = function(cuk){
           return next()
         })
 
-        helper('core:bootTrace')('%A Loading routes...', null)
+        helper('core:bootTrace')('|  |- Loading routes...')
 
         _.each(opts.files, f => {
           makeRoute(f, opts.pkg, pkg, router, opts.dir)
