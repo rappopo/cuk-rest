@@ -8,12 +8,10 @@ module.exports = function(cuk){
   const { _, helper, path, fs, globby } = cuk.pkg.core.lib
   const app = cuk.pkg.http.lib.app
   const makeRoute = require('./lib/make_route')(cuk)
-  const makeDefHandler = require('./lib/make_def_handler')(cuk)
 
   pkg.lib.Router = Router
 
   return new Promise((resolve, reject) => {
-//    app.use(makeDefHandler())
     app.use(helper('http:composeMiddleware')('http:responseTime', `${pkgId}:*`))
 
     helper('core:bootDeep')({
@@ -21,6 +19,7 @@ module.exports = function(cuk){
       name: '',
       parentAction: opts => {
         let router = new Router({ prefix: pkg.cfg.common.mount })
+        router.pkgId = pkgId
         app.use(helper('http:composeMiddleware')(
           _.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`)
         )
@@ -34,7 +33,7 @@ module.exports = function(cuk){
           return next()
         })
 
-        helper('core:bootTrace')('|  |- Loading routes...')
+        helper('core:trace')('|  |- Loading routes...')
 
         _.each(opts.files, f => {
           makeRoute(f, opts.pkg, pkg, router, opts.dir)

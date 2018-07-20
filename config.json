@@ -1,13 +1,20 @@
 {
   "common": {
     "mount": "/api",
-    "hideError": true,
+    "error": {
+      "hide": true,
+      "throwRecordNotFound": true
+    },
     "versioning": "v%s",
     "supportedFormats": ["json"],
-    "crud": {
+    "model": {
+      "autoFill": false
+    },
+    "default": {
       "limit": 25
     },
     "plainResult": false,
+    "replaceAsModify": true,
     "key": {
       "success": "success",
       "data": "data",

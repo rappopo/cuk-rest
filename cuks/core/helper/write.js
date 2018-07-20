@@ -3,6 +3,7 @@
 module.exports = function(cuk) {
 
   return (obj, ctx) => {
-    ctx.body = obj
+    ctx.type = 'application/json; charset=utf-8'
+    ctx.body = JSON.stringify(obj)
   }
 }
