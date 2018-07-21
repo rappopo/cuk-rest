@@ -4,6 +4,7 @@ module.exports = function(cuk) {
   const { _, helper } = cuk.pkg.core.lib
 
   return (model, params = {}) => {
+    params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
     return ctx => {
       let { options, schema, attrs, idField, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
@@ -18,7 +19,7 @@ module.exports = function(cuk) {
       }
       body = helper('core:merge')(body, options.body)
       return new Promise((resolve, reject) => {
-        model.create(body)
+        model.create(body, options.modelOpts)
         .then(result => {
           resolve(result)
         })

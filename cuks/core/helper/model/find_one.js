@@ -4,6 +4,7 @@ module.exports = function(cuk) {
   const { _, helper } = cuk.pkg.core.lib
 
   return (model, params = {}) => {
+    params.modelOpts = params.modelOpts || {}
     const cfg = _.get(cuk.pkg.rest, 'cfg.common')
     const handlerError = require('./_handle_error')(cuk)
     if (_.isString(model)) model = helper('model:get')(model)
@@ -15,7 +16,7 @@ module.exports = function(cuk) {
       }
       query = helper('core:merge')(query, options.query)
       return new Promise((resolve, reject) => {
-        model.find({ query: query })
+        model.find({ query: query }, options.modelOpts)
         .then(result => {
           if (result.data.length === 0) throw helper('core:makeError')({ status: 404, msg: 'Record not found' })
           resolve({

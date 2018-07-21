@@ -8,6 +8,7 @@ module.exports = function(cuk) {
   const parseQuery = require('./_parse_query')(cuk)
 
   return (model, params = {}) => {
+    params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
     return ctx => {
       let { options, schema, attrs, idField, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
@@ -41,7 +42,7 @@ module.exports = function(cuk) {
           page: page,
           query: query,
           sort: sort
-        })
+        }, options.modelOpts)
         .then(result => {
           resolve(result)
         })

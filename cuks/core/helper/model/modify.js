@@ -4,6 +4,7 @@ module.exports = function(cuk) {
   const { _, helper } = cuk.pkg.core.lib
 
   return (model, params = {}) => {
+    params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
     const handlerError = require('./_handle_error')(cuk)
     return ctx => {
@@ -19,7 +20,7 @@ module.exports = function(cuk) {
         model.find({ query: query })
         .then(result => {
           if (result.data.length === 0) throw helper('core:makeError')({ status: 404, msg: 'Record not found' })
-          return model.update(result.data[0][idField], body)
+          return model.update(result.data[0][idField], body, options.modelOpts)
         })
         .then(result => {
           resolve(result)
