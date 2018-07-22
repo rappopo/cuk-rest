@@ -3,13 +3,21 @@
 module.exports = function(cuk) {
   const { _ } = cuk.pkg.core.lib
 
+  const mapStatusCode = err => {
+    let statusCode = err.statusCode || 500
+    switch (err.message) {
+      case 'Validation error': statusCode = 406; break
+    }
+    return statusCode
+  }
+
   return (err) => {
     const cfg = cuk.pkg.rest.cfg.common
 
     let res = {
       success: false,
       msg: cfg.error.hide && err.statusCode !== 404 ? 'Internal Server Error' : err.message,
-      statusCode: err.statusCode || 500
+      statusCode: mapStatusCode(err)
     }
     if (cfg.key.msg && !_.has(res, cfg.key.msg)) {
       res[cfg.key.msg] = res.msg
