@@ -13,7 +13,7 @@ module.exports = function(cuk){
 
   return new Promise((resolve, reject) => {
     app.use(helper('http:composeMiddleware')('http:responseTime', `${pkgId}:*`))
-
+    helper('core:trace')('|  |- Loading routes...')
     helper('core:bootDeep')({
       pkgId: pkgId,
       name: '',
@@ -31,8 +31,6 @@ module.exports = function(cuk){
           }
           return next()
         })
-
-        helper('core:trace')('|  |- Loading routes...')
 
         _.each(opts.files, f => {
           makeRoute(f, opts.pkg, pkg, router, opts.dir)

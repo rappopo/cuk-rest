@@ -9,8 +9,8 @@ module.exports = function(cuk) {
     const handlerError = require('./_handle_error')(cuk)
     if (_.isString(model)) model = helper('model:get')(model)
     return ctx => {
-      let { options, schema, attrs, idField, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
-      let query = _.set({}, idField, ctx.params.id || ctx.state._id)
+      let { options, schema, attrs, idColumn, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
+      let query = _.set({}, idColumn, ctx.params.id || ctx.state._id)
       if (options.autoFill) {
         if (attrs.indexOf('domain') > -1 && domain) query.domain = domain
       }

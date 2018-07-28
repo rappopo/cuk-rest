@@ -8,8 +8,8 @@ module.exports = function(cuk) {
     if (_.isString(model)) model = helper('model:get')(model)
     const handlerError = require('./_handle_error')(cuk)
     return ctx => {
-      let { options, schema, attrs, idField, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
-      let query = _.set({}, idField, ctx.params.id || ctx.state._id)
+      let { options, schema, attrs, idColumn, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
+      let query = _.set({}, idColumn, ctx.params.id || ctx.state._id)
       if (options.autoFill) {
         if (attrs.indexOf('domain') > -1 && domain) query.domain = domain
       }
@@ -19,7 +19,7 @@ module.exports = function(cuk) {
         model.find({ query: query })
         .then(result => {
           if (result.data.length === 0) throw helper('core:makeError')({ status: 404, msg: 'Record not found' })
-          return model.remove(result.data[0][idField], options.modelOpts)
+          return model.remove(result.data[0][idColumn], options.modelOpts)
         })
         .then(result => {
           resolve(result)
