@@ -2,7 +2,7 @@
 
 const q2m = require('query-to-mongo')
 
-module.exports = function(cuk) {
+module.exports = function (cuk) {
   const { _, helper, moment } = cuk.pkg.core.lib
   const pkg = cuk.pkg.rest
   const parseQuery = require('./_parse_query')(cuk)

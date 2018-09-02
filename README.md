@@ -3,7 +3,7 @@
 ### Route File
 
 ```javascript
-module.exports = function(cuk) {
+module.exports = function (cuk) {
   ...
   return {
     column: ['col1', 'col2'],                      // optional, global columns

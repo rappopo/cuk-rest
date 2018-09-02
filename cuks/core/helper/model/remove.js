@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function(cuk) {
+module.exports = function (cuk) {
   const { _, helper } = cuk.pkg.core.lib
 
   return (model, params = {}) => {
@@ -24,7 +24,7 @@ module.exports = function(cuk) {
         .then(result => {
           resolve(result)
         })
-        .catch(err => {
+        .catch (err => {
           handlerError(err, resolve, reject)
         })
       })

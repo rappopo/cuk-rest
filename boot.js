@@ -2,7 +2,7 @@
 
 const Router = require('koa-router')
 
-module.exports = function(cuk){
+module.exports = function (cuk){
   let pkgId = 'rest',
     pkg = cuk.pkg[pkgId]
   const { _, helper, path, fs, globby } = cuk.pkg.core.lib
