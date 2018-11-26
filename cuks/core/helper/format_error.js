@@ -2,7 +2,6 @@
 
 module.exports = function (cuk) {
   const { _ } = cuk.pkg.core.lib
-  const { CukModelValidationError } = cuk.pkg.model.lib
 
   const mapStatusCode = err => {
     let statusCode = err.statusCode || 500
@@ -34,9 +33,7 @@ module.exports = function (cuk) {
         delete res[k]
       }
     })
-    if (cfg.key.details && !cfg.error.hide && !_.isEmpty(err.details))
-      res[cfg.key.details] = err.details
+    if (cfg.key.details && !cfg.error.hide && !_.isEmpty(err.details)) res[cfg.key.details] = err.details
     return res
   }
-
 }

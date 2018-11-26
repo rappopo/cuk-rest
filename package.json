@@ -1,6 +1,6 @@
 {
   "name": "@rappopo/cuk-rest",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Rappopo CUK RESTful Builder",
   "main": "index.js",
   "scripts": {
