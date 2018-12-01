@@ -1,5 +1,13 @@
 ## Changelog
 
+### 0.0.8
+
+- Change site domain to site code
+
+### 0.0.7
+
+- Bug fix: auth should be in ctx.auth, not in ctx.state.auth
+
 ### 0.0.6
 
 - Bug fix race condition in make_route.js
