@@ -5,11 +5,10 @@ module.exports = function (cuk) {
 
   return (model, params = {}) => {
     params.modelOpts = params.modelOpts || {}
-    const cfg = _.get(cuk.pkg.rest, 'cfg.common')
     const handlerError = require('./_handle_error')(cuk)
     if (_.isString(model)) model = helper('model:get')(model)
     return ctx => {
-      let { options, schema, attrs, idColumn, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
+      let { options, attrs, idColumn, domain } = require('./_lib')(cuk)(model, ctx, params)
       let query = _.set({}, idColumn, ctx.params.id || ctx.state._id)
       if (options.autoFill) {
         if (attrs.indexOf('domain') > -1 && domain) query.domain = domain
@@ -17,16 +16,16 @@ module.exports = function (cuk) {
       query = helper('core:merge')(query, options.query)
       return new Promise((resolve, reject) => {
         model.find({ query: query }, options.modelOpts)
-        .then(result => {
-          if (result.data.length === 0) throw helper('core:makeError')({ status: 404, msg: 'Record not found' })
-          resolve({
-            success: result.success,
-            data: result.data[0] || {}
+          .then(result => {
+            if (result.data.length === 0) throw helper('core:makeError')({ status: 404, msg: 'Record not found' })
+            resolve({
+              success: result.success,
+              data: result.data[0] || {}
+            })
           })
-        })
-        .catch (err => {
-          handlerError(err, resolve, reject)
-        })
+          .catch(err => {
+            handlerError(err, resolve, reject)
+          })
       })
     }
   }

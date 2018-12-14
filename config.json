@@ -1,29 +1,27 @@
 {
-  "common": {
-    "mount": "/api",
-    "error": {
-      "hide": true,
-      "throwRecordNotFound": true
-    },
-    "versioning": "v%s",
-    "supportedFormats": ["json"],
-    "model": {
-      "autoFill": false
-    },
-    "default": {
-      "limit": 25
-    },
-    "plainResult": false,
-    "replaceAsModify": true,
-    "key": {
-      "success": "success",
-      "data": "data",
-      "total": "total",
-      "page": false,
-      "skip": false,
-      "msg": "msg",
-      "statusCode": "statusCode",
-      "details": "details"
-    }
+  "mount": "/api",
+  "error": {
+    "hide": true,
+    "throwRecordNotFound": true
+  },
+  "versioning": "v%s",
+  "supportedFormats": ["json"],
+  "model": {
+    "autoFill": false
+  },
+  "default": {
+    "limit": 25
+  },
+  "plainResult": false,
+  "replaceAsModify": true,
+  "key": {
+    "success": "success",
+    "data": "data",
+    "total": "total",
+    "page": false,
+    "skip": false,
+    "msg": "msg",
+    "statusCode": "statusCode",
+    "details": "details"
   }
 }

@@ -6,7 +6,7 @@ module.exports = function (cuk) {
 
   return (model, params = {}) => {
     params.modelOpts = params.modelOpts || {}
-    if (!_.get(cuk.pkg.rest, 'cfg.common.replaceAsModify'))
+    if (!_.get(cuk.pkg.rest, 'cfg.replaceAsModify'))
       params.modelOpts.fullReplace = true
     return modify(model, params)
   }

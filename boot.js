@@ -2,13 +2,13 @@
 
 const Router = require('koa-router')
 
-module.exports = function (cuk){
-  let pkgId = 'rest',
-    pkg = cuk.pkg[pkgId]
-  const { _, helper, path, fs, globby } = cuk.pkg.core.lib
+module.exports = function (cuk) {
+  const pkgId = 'rest'
+  const pkg = cuk.pkg[pkgId]
+  const { _, helper } = cuk.pkg.core.lib
   const app = cuk.pkg.http.lib.app
   const makeRoute = require('./lib/make_route')(cuk)
-  const router = new Router({ prefix: pkg.cfg.common.mount })
+  const router = new Router({ prefix: pkg.cfg.mount })
   pkg.lib.router = router
 
   return new Promise((resolve, reject) => {
@@ -24,10 +24,11 @@ module.exports = function (cuk){
         )
 
         router.param('ext', (ext, ctx, next) => {
-          let accepts = pkg.cfg.common.supportedFormats
+          let accepts = pkg.cfg.supportedFormats
           if (accepts.indexOf(ext) === -1) {
             ctx.params.ext = 'json'
-            return ctx.status = 404
+            ctx.status = 404
+            return
           }
           return next()
         })

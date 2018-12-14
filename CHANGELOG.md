@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.0.9
+
+- Break change: config root no longer use common & cuks.
+
 ### 0.0.8
 
 - Change site domain to site code

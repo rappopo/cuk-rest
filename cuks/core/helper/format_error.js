@@ -11,7 +11,7 @@ module.exports = function (cuk) {
   }
 
   return (err) => {
-    const cfg = cuk.pkg.rest.cfg.common
+    const cfg = cuk.pkg.rest.cfg
 
     let res = {
       success: false,

@@ -3,7 +3,7 @@
 const q2m = require('query-to-mongo')
 
 module.exports = function (cuk) {
-  const { _, helper, moment } = cuk.pkg.core.lib
+  const { _, helper } = cuk.pkg.core.lib
   const pkg = cuk.pkg.rest
   const parseQuery = require('./_parse_query')(cuk)
 
@@ -11,11 +11,11 @@ module.exports = function (cuk) {
     params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
     return ctx => {
-      let { options, schema, attrs, idColumn, domain, uid, gid } = require('./_lib')(cuk)(model, ctx, params)
+      let { options } = require('./_lib')(cuk)(model, ctx, params)
       return new Promise((resolve, reject) => {
-        let limit = Number(ctx.query.limit) || pkg.cfg.common.default.limit || 25,
-          page = Number(ctx.query.page) || 1,
-          sort = ctx.query.sort || ''
+        let limit = Number(ctx.query.limit) || pkg.cfg.default.limit || 25
+        let page = Number(ctx.query.page) || 1
+        let sort = ctx.query.sort || ''
         if (!ctx.query.page && ctx.query.offset) {
           let offset = Number(ctx.query.offset) || 0
           page = Math.round(offset / limit) + 1
@@ -29,7 +29,7 @@ module.exports = function (cuk) {
           }
           if (cuk.pkg.auth) {
             _.each(['basic', 'bearer', 'jwt'], t => {
-              let qs = _.get(cuk.pkg.auth, 'cfg.common.method.' + t + '.detect.querystring')
+              let qs = _.get(cuk.pkg.auth, 'cfg.method.' + t + '.detect.querystring')
               if (_.isString(qs)) opts.ignore.push(qs)
             })
           }
@@ -43,10 +43,10 @@ module.exports = function (cuk) {
           query: query,
           sort: sort
         }, options.modelOpts)
-        .then(result => {
-          resolve(result)
-        })
-        .catch(reject)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(reject)
       })
     }
   }
