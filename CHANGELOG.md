@@ -3,6 +3,8 @@
 ### 0.0.9
 
 - Break change: config root no longer use common & cuks.
+- CORS globally enabled through config
+- Setup separate route for OPTIONS method for any route that has CORS enabled
 
 ### 0.0.8
 

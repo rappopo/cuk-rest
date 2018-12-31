@@ -14,6 +14,7 @@
   },
   "plainResult": false,
   "replaceAsModify": true,
+  "globalMiddleware": "",
   "key": {
     "success": "success",
     "data": "data",
@@ -21,6 +22,7 @@
     "page": false,
     "skip": false,
     "msg": "msg",
+    "id": "id",
     "statusCode": "statusCode",
     "details": "details"
   }
