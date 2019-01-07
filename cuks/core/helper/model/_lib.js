@@ -11,7 +11,7 @@ module.exports = function (cuk) {
       schema: model.schema,
       attrs: _.keys(model.schema.attributes),
       idColumn: idColumn,
-      domain: _.get(ctx, 'state.site.code', '*'),
+      site: _.get(ctx, 'state.site.code', 'localhost'),
       uid: _.get(ctx, 'auth.user.' + idColumn),
       gid: _.get(ctx, 'auth.group.' + idColumn)
     }
