@@ -14,7 +14,7 @@
   },
   "plainResult": false,
   "replaceAsModify": true,
-  "globalMiddleware": "",
+  "globalMiddleware": "http:cors",
   "key": {
     "success": "success",
     "data": "data",

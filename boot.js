@@ -19,9 +19,8 @@ module.exports = function (cuk) {
       name: '',
       parentAction: opts => {
         router.pkgId = pkgId
-        app.use(helper('http:composeMiddleware')(
-          _.get(pkg.cfg, 'cuks.http.middleware', []), `${pkgId}:${opts.pkg.id}`)
-        )
+        const mws = _.get(pkg.cfg, 'cuks.http.middleware', [])
+        if (!_.isEmpty(mws)) app.use(helper('http:composeMiddleware')(mws, `${pkgId}:${opts.pkg.id}`))
 
         router.param('ext', (ext, ctx, next) => {
           let accepts = pkg.cfg.supportedFormats
