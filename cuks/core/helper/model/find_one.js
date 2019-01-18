@@ -7,11 +7,11 @@ module.exports = function (cuk) {
   return (model, params = {}) => {
     params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
-    return ctx => {
+    return (ctx, restOpts = {}) => {
       let { options, site } = require('./_lib')(cuk)(model, ctx, params)
       let id = ctx.params.id || ctx.state._id
       return new Promise((resolve, reject) => {
-        const opts = helper('core:merge')(options.modelOpts, { site: site })
+        const opts = helper('core:merge')(options.modelOpts, restOpts, { site: site })
         model.findOne(id, opts)
           .then(resolve)
           .catch(err => {

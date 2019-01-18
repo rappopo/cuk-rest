@@ -26,7 +26,7 @@ module.exports = function (cuk) {
       p[0] = _.trim(p[0])
       p[1] = _.trim(p[1])
       if (p[1].indexOf('*') > -1) {
-        query[p[0]] = { $like: p[1] }
+        query[p[0]] = { $regex: p[1].replace(/\*/g, '%') }
       } else {
         query[p[0]] = p[1]
       }
@@ -50,7 +50,7 @@ module.exports = function (cuk) {
     if (q.substr(0, 3) === 'gt:') return fromSingle(q.substr(3), '$gt')
     if (q.substr(0, 4) === 'gte:') return fromSingle(q.substr(4), '$gte')
     if (q.substr(0, 5) === 'size:') return fromSingle(q.substr(5), '$size')
-    if (q.substr(0, 5) === 'like:') return fromSingle(q.substr(5), '$like')
+    if (q.substr(0, 5) === 'like:') return fromSingle(q.substr(5), '$regex')
     return fromMisc(q)
   }
 }

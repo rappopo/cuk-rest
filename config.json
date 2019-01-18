@@ -1,13 +1,14 @@
 {
   "mount": "/api",
   "error": {
-    "hide": true,
+    "hide": false,
     "throwRecordNotFound": true
   },
   "versioning": "v%s",
   "supportedFormats": ["json"],
   "model": {
-    "autoFill": false
+    "autoFill": false,
+    "options": {}
   },
   "default": {
     "limit": 25
