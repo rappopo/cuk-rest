@@ -1,5 +1,7 @@
 'use strict'
 
+const q2m = require('query-to-mongo')
+
 module.exports = function (cuk) {
   const { _, helper } = cuk.pkg.core.lib
 
@@ -8,9 +10,9 @@ module.exports = function (cuk) {
   }
 
   const fromSingle = (q, op, multi) => {
-    let expr = q.split(':'),
-      field = _.trim(expr[0]),
-      query = {}
+    let expr = q.split(':')
+    let field = _.trim(expr[0])
+    let query = {}
     expr.shift()
     let args = multi ? helper('core:makeChoices')(expr[0]) : expr[0]
     query[field] = {}
@@ -34,7 +36,7 @@ module.exports = function (cuk) {
     return query
   }
 
-  return (q = '') => {
+  const parseQuery = (q = '') => {
     q = _.trim(q)
     if (_.isEmpty(q)) return {}
     if (q.substr(0, 5) === 'json:') return fromJson(q.substr(5))
@@ -52,5 +54,38 @@ module.exports = function (cuk) {
     if (q.substr(0, 5) === 'size:') return fromSingle(q.substr(5), '$size')
     if (q.substr(0, 5) === 'like:') return fromSingle(q.substr(5), '$regex')
     return fromMisc(q)
+  }
+
+  return ctx => {
+    let limit = Number(ctx.query.limit) || helper('core:config')('rest', 'default.limit', 25)
+    let page = Number(ctx.query.page) || 1
+    let sort = ctx.query.sort || ''
+    if (!ctx.query.page && ctx.query.offset) {
+      let offset = Number(ctx.query.offset) || 0
+      page = Math.round(offset / limit) + 1
+    }
+    let query = {}
+    if (ctx.query.q) {
+      query = parseQuery(ctx.query.q)
+    } else if (!_.isEmpty(ctx.request.querystring)) {
+      let opts = {
+        ignore: ['page', 'limit', 'sort', 'offset']
+      }
+      if (cuk.pkg.auth) {
+        _.each(['basic', 'bearer', 'jwt'], t => {
+          let qs = helper('core:config')('auth', 'method.' + t + '.detect.querystring')
+          if (_.isString(qs)) opts.ignore.push(qs)
+        })
+      }
+      query = q2m(ctx.request.querystring, opts).criteria
+    }
+
+    query = helper('core:merge')(query, ctx.state._query)
+    return {
+      limit: limit,
+      page: page,
+      query: query,
+      sort: sort
+    }
   }
 }
