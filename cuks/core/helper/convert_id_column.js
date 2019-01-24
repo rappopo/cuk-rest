@@ -5,7 +5,8 @@ module.exports = function (cuk) {
 
   return (name, src) => {
     if (_.isEmpty(src)) return src
-    const idCol = helper('model:getIdColumn')(name)
+    let idCol = '_id'
+    if (name) idCol = helper('model:getIdColumn')(name)
     const idWanted = helper('core:config')('rest', 'key.id', '')
     if (idCol === idWanted) return src
     const isArr = _.isArray(src)
