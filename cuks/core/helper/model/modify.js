@@ -8,12 +8,12 @@ module.exports = function (cuk) {
     params.modelOpts = params.modelOpts || {}
     if (_.isString(model)) model = helper('model:get')(model)
     return (ctx, restOpts = {}) => {
-      let { options, site } = require('./_lib')(cuk)(model, ctx, params)
+      let { options, sid, uid } = require('./_lib')(cuk)(model, ctx, params)
       let body = ctx.request.body || {}
       body = helper('core:merge')(body, options.body)
       let id = ctx.params.id || ctx.state._id
       return new Promise((resolve, reject) => {
-        const opts = helper('core:merge')(options.modelOpts, restOpts, { site: site })
+        const opts = helper('core:merge')(options.modelOpts, restOpts, { site: sid, owner: uid })
         model.update(id, body, opts)
           .then(result => {
             resolve(result)
